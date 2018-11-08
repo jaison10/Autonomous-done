@@ -1,2 +1,3 @@
 # Hello <br>
-To use this code please run ```pip install dronekit```
+To install on Intel Aero, first connect your drone to a WiFi network (in client mode) with internet access and install Dronekit: <br>
+```pip install dronekit```
