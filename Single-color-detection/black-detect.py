@@ -29,20 +29,26 @@ cv2.imwrite(file, camera_capture)
 
 hsv = cv2.cvtColor(camera_capture, cv2.COLOR_BGR2HSV)
 
+mask = cv2.inRange(hsv, (0, 0, 0), (70, 255,255))
 
-mask=np.zeros(camera_capture.shape[:2],dtype="uint8")   # creates a canvas with height and width of the image. 
-(cx,cy)=(camera_capture.shape[1] // 2, camera_capture.shape[0] //2)    #finding the center. 
-cv2.rectangle(mask, (cx-75, cy-75),(cx+75, cy+75),255,-1)   #creating a mask. (B/W)
-cv2.imshow("MASK IS:",mask)
-cv2.waitKey(0)
+# mask=np.zeros(camera_capture.shape[:2],dtype="uint8")   # creates a canvas with height and width of the image. 
+# (cx,cy)=(camera_capture.shape[1] // 2, camera_capture.shape[0] //2)    #finding the center. 
+# cv2.rectangle(mask, (cx-75, cy-75),(cx+75, cy+75),255,-1)   #creating a mask. (B/W)
+# cv2.imshow("MASK IS:",mask)
+# cv2.waitKey(0)
 
 masked= cv2.bitwise_and(camera_capture, camera_capture,mask=mask)
 cv2.imshow("mask applied image ", masked)
 cv2.waitKey(0)
+# ## mask of black (0,0,0) ~ (0, 0,0)
+# mask = cv2.inRange(hsv, (0, 0, 0), (0,0,0))
+
+# ## slice the green
+# imask = mask>0
+# green = np.zeros_like(camera_capture, np.uint8)
+# green[imask] = camera_capture[imask]
 
 ## save 
 cv2.imwrite("black.png", masked)
 
 del(camera)
-cv2.destroyAllWindows()
-cap.release()
